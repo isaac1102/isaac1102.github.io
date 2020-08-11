@@ -8,8 +8,8 @@
 # Site settings
 title: 늦깎이 개발자의 개발분투기
 brief-intro: 
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://isaac1102.github.io/dev_note" # the base hostname & protocol for your site
+baseurl: "/dev_note" # the subpath of your site, e.g. /blog
+url: "https://isaac1102.github.io" # the base hostname & protocol for your site
 
 permalink: /:year/:month/:day/:title/
 
