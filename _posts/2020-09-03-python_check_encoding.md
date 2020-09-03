@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "TIL(2020-09-03)"
+title:  "파이썬 인코딩 확인"
 date:   2020-09-03 00:00:00
 categories: PYTHON
 tags: PYTHON
