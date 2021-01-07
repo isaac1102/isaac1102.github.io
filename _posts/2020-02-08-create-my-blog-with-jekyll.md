@@ -1,10 +1,9 @@
 ---
 layout: post
 title:  "Java8에 추가된 것들"
-date:   2019-11-14 00:00:00
+date:   2019-11-14 00:00:01
 categories: TIL
 tags: TIL JAVA
-comments: true
 ---
 
 * content
