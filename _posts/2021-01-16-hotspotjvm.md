@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[JAVA 기초]HotSpot JVM"
+title:  "JAVA HotSpot JVM"
 date:   2021-01-16 00:00:00
 categories: JAVA JVM
 tags: JAVA JVM
@@ -16,9 +16,7 @@ comments: true
 
 그동안 인터넷 와이파이 관련된 핫스팟만 알았지..
 JVM을 말하는 것인 줄은 이번에 알았다...
-
-![](https://images.velog.io/images/dev_isaac/post/c82df0e5-69f7-46f8-bc7e-cae04f6f63aa/%EC%95%88%ED%83%80%EA%B9%8C%EC%9B%80.png)
-나란 🐕발자.. 참 대단합니다... 허허허
+나란 🐕발자.. 참 대단합니다... 허허허   
 
 ___
 
@@ -26,7 +24,7 @@ ___
 근데 막상 알아보니 HotSpot이라는 단어를 JVM에 사용한 이유가 생각보다 단순하다. 
 > **JDK1.3 전에 나왔던 가상 머신과 구분하기 위한 이름이라고 생각하면 된다. 
 참고로 자바를 만드는 오라클 사이트에서는 이전 버전의 JVM을 Classic VM이라고 표현하고 있다.**
-<div style="text-align:right;"> 출처 : 『JAVA의 신』 - 이상민 저</div>
+<div style="text-align:right;"> 출처 : 『JAVA의 신』 - 이상민 저</div>   
 
 JVM에 대한 설명은 [이미 훌륭하게 정리된 글의 링크](https://medium.com/pocs/jvm%EC%9D%B4-%EC%9E%90%EB%B0%94%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%84-%EC%8B%A4%ED%96%89%ED%95%98%EB%8A%94-%EA%B3%BC%EC%A0%95-3ac22cb22916)를 참조하도록 하자.
 
@@ -59,5 +57,5 @@ JVM에 대한 설명은 [이미 훌륭하게 정리된 글의 링크](https://me
 명시적으로 컴파일러를 지정하려면 아래와 같이 java 명령과 클래스 이름 사이에 옵션을 추가하면 된다.
 
  
->```java -server 클래스명```
+>```java -server 클래스명```    
 >```java -client 클래스명```
