@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "java7에서 변경된 사항들"
+title:  "[ JAVA ] java7에서 변경된 사항들"
 date:   2019-11-13 00:00:07
 categories: TIL
 tags: JAVA TIL
