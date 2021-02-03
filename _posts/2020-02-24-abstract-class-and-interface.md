@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "JAVA 추상클래스 vs 인터페이스 차이점 정복"
+title:  "[ JAVA ]  추상클래스 vs 인터페이스 차이점 정복"
 date:   2020-02-24 00:00:00
 categories: JAVA
 tags: java abstract interface 추상클래스 인터페이스

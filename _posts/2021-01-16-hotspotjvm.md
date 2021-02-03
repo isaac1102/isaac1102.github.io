@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "JAVA HotSpot JVM"
+title:  "[ JAVA ] HotSpot JVM"
 date:   2021-01-16 00:00:00
 categories: JAVA JVM
 tags: JAVA JVM
