@@ -21,10 +21,48 @@ tags: SPRING
 @Component를 사용하여 빈 자동등록을 하게 하려면, 빈 스캔 기능을 사용하겠다는 어노테이션 정의가 필요한데, @ComponentScan이 그 기능을 수행한다. 
 지정된 패키지를 순회하다가 @Component가 붙은 클래스가 발견되면 새로운 빈으로 자동 추가한다. 이렇게 생성되는 빈은 아이디를 따로 지정하지 않으면 클래스 이름의 첫글자를 소문자로 바꾸어서 사용된다. 
 
-@interface
-스프링의 프로파일과 @Profile
-프로퍼티 소스 @PropertySource
-@Enable	
+
+### 스프링의 프로파일과 @Profile
+
+### 프로퍼티 소스 @PropertySource
+- Spring의 Environment에 PropertySource를 추가하기위한 편리하고 선언적인 메커니즘을 제공하는 주석. @Configuration 클래스와 함께 사용된다.
+- 아래의 코드를 보면, app.properties라는 설정파일로부터 testbean.name의 키에 해당하는 값을 가지고 오는 것을 알 수 있다. 
+```
+@Configuration
+@PropertySource("classpath:/com/myco/app.properties")
+public class AppConfig {
+
+     @Autowired
+     Environment env;
+
+     @Bean
+     public TestBean testBean() {
+         TestBean testBean = new TestBean();
+         testBean.setName(env.getProperty("testbean.name"));
+         return testBean;
+     }
+}
+```
+Environment 객체는 구성 클래스에 @Autowired되어 TestBean 객체를 채울 때 사용된다. 위의 구성에서 testBean.getName ()을 호출하면 "myTestBean"이 반환된다.   
+
+
+### @Enable	
+Spring에는 개발자가 Spring 애플리케이션을 쉽게 구성 할 수 있도록하는 @Enable 주석 세트가 함께 제공된다. 이러한 주석은 @Configuration 주석과 함께 사용된다.
+종류는 아래와 같다.    
+
+- @EnableWebMvc
+	- @EnableWebMvc 주석은 애플리케이션에서 Spring MVC를 활성화하는 데 사용되며 WebMvcConfigurationSupport에서 Spring MVC 구성을 가져 와서 작동한다. 
+	- 유사한 기능을 가진 XML은 <mvc : annotation-driven />이다.
+- @EnableCaching
+- @EnableScheduling
+- @EnableAsync
+- @EnableWebSocket
+- @EnableJpaRepositories
+- @EnableTransactionManagement
+- @EnableJpaAuditing
+
+(작성중 - 여기서 정리할 것 https://www.baeldung.com/spring-enable-annotations)
+
 @Service
 @Repository
 @Import
