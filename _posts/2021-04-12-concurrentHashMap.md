@@ -8,7 +8,7 @@ tags: JAVA concurrentHashMap
 * content
 {:toc}
 
-&nbsp;회사에서 종종 보이는 예외중의 하나가 동시성 관련 `ConcurrentModificationException`예외였다. 이 예외는 어떤 쓰레드가 Iterator가 반복중인 Collection을 수정하는 경우 발생한다. 내가 본 경우는 DB에서 가져온 List를 순회하며 조건에 따라 수정하는 로직이었던 것으로 기억한다. 동시성 관련 예외는 멀티 스레드 환경에서 서로 다른 스레드가 같은 객체에 접근하여 데이터를 조작할 때에 발생한다. 아까 말한 List인 ArrayList의 경우 thread-safe하지 않기 때문에 동시성 이슈에서 자유로울 수 없었던 것이다.   
+&nbsp;회사에서 종종 보이는 예외중의 하나가 동시성 관련 `ConcurrentModificationException`예외였다. 이 예외는 어떤 쓰레드가 Iterator를 통해 반복중인 Collection을 수정하는 경우 발생한다. 내가 본 경우는 DB에서 가져온 List를 순회하며 조건에 따라 수정하는 로직이었던 것으로 기억한다. 동시성 관련 예외는 멀티 스레드 환경에서 서로 다른 스레드가 같은 객체에 접근하여 데이터를 조작할 때에 발생한다. 아까 말한 List인 ArrayList의 경우 thread-safe하지 않기 때문에 동시성 이슈에서 자유로울 수 없었던 것이다.   
 <br>
 
 
