@@ -10,3 +10,5 @@ tags: JAVA
 
 java의 주요기술에 대한 공식문서
 https://www.oracle.com/java/technologies/javase/javase-core-technologies-apis.html
+java의 주요스펙에 대한 공식문서
+https://docs.oracle.com/javase/specs/
