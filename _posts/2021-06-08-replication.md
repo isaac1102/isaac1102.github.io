@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "MySQL Replication으로 부하 분산하기"
+title:  "MySQL Replication으로 부하 분산하기(작성중)"
 date:   2021-06-08 23:31:01
 categories: DataBase MySQL
 tags: DataBase MySQL
