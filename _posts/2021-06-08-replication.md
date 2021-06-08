@@ -10,7 +10,10 @@ tags: DataBase MySQL
 이번에는 DB서버에 가해지는 부하를 다루는 방법의 일환으로 `Replication`을 사용하는 방법에 대해서 알아보겠습니다. 
 이 프로젝트에서 사용한 DB는 `MySQL`이므로 `MySQL`을 기준으로 알아보았습니다. <br> 
  <br> 
-`MySQL`을 이중화하기 위해서는 기본적으로 2개 이상의 MySQL서비스가 실행되어야 합니다.
+`MySQL`을 이중화하기 위해서는 기본적으로 2개 이상의 MySQL서비스가 실행되어야 합니다. (이 부분에 대한 내용은 생략하겠습니다😐)<br> 
 
 
-
+>참고자료 
+>- https://gangnam-americano.tistory.com/12
+>- http://cloudrain21.com/mysql-replication
+>- https://server-talk.tistory.com/240
