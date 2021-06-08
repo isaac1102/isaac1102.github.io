@@ -16,7 +16,7 @@
 title: Isaac's Dev-Note
 description: > # this means to ignore newlines until "baseurl:"
   Material theme based on <a href="http://materializecss.com">Materialize.css</a> for jekyll sites
-baseurl: "/isaac1102"
+baseurl: "/"
 url: "https://isaac1102.github.io"
 permalink: /:year/:month/:day/:title
 repository: isaac1102/smart-store
@@ -29,7 +29,7 @@ user_email: "isaacblink1439@gmail.com"
 contact_url: "https://goo.gl/tVljbV"
 google_tracking_id: "UA-96359860-1"
 google_site_verification: "UA-96359860-1"
-disqus_shortname: "matjek"
+disqus_shortname: "isaac"
 
 # Build settings
 markdown: kramdown
