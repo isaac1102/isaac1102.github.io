@@ -14,6 +14,6 @@ tags: DataBase MySQL
 
 
 >참고자료 
->- https://gangnam-americano.tistory.com/12
->- http://cloudrain21.com/mysql-replication
->- https://server-talk.tistory.com/240
+>- [https://gangnam-americano.tistory.com/12](https://gangnam-americano.tistory.com/12)
+>- [http://cloudrain21.com/mysql-replication](http://cloudrain21.com/mysql-replication)
+>- [https://server-talk.tistory.com/240](https://server-talk.tistory.com/240)
