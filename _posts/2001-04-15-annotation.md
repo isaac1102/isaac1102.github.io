@@ -4,6 +4,7 @@ title:  "잘 몰랐던 스프링 Annotaion정리"
 date:   2001-04-15 00:00:07
 categories: SPRING
 tags: SPRING
+comments: 1
 ---
 ### @Component   
 @Component 는 Spring이 사용자 정의 Bean을 자동으로 감지 할 수 있도록하는 주석이다.   
