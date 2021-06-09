@@ -4,7 +4,7 @@ title:  "[ JAVA ] HotSpot JVM"
 date:   2021-01-16 00:00:00
 categories: JAVA JVM
 tags: JAVA JVM
-comments: true
+comments: 1
 ---
 사실 HotSpot이라는 단어를 들었을 때 가장 먼저 떠오른 의미는 
 > 핫스팟 또는 핫스폿(영어: hotspot)은 스마트폰, 노트북을 포함한 이동 단말기로 라우터 등 무선 액세스 포인트가 설치된 지역에서 무선 네트워크(WLAN)에 접속하여 초고속 인터넷과 각종 콘텐츠를 이용할 수 있게 하는 서비스
