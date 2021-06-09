@@ -4,6 +4,7 @@ title:  "[ JAVA ]  equals()와 hashcode()로 객체 비교하기"
 date:   2020-05-13 00:00:00 
 categories: JAVA
 tags: JAVA
+comments: 1
 ---
 객체를 비교하는 데 없어서는 안될 메소드인 equals와 hashcode.
 이 두 메소드의 관계는 무엇일까? 이것에 대해 알아보도록 하자. 
