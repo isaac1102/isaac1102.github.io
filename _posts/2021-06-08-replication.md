@@ -4,6 +4,7 @@ title:  "MySQL Replication으로 부하 분산하기(작성중)"
 date:   2021-06-08 23:31:01
 categories: DataBase MySQL
 tags: DataBase MySQL
+comments: 1
 ---
 스마트 스토어 구현 프로젝트를 진행하면서 가장 많이 고려하는 점은 대용량 트래픽 환경에서 어플리케이션의 성능을 안정적으로 유지할 수 있는가였습니다.<br>  
 이를 위해 웹서버의 __Scale-up__ 이나 __Scale-Out__ 을 통해 서버의 처리용량을 확장하는 방법에 대해서도 알아봤었고, `L4`를 통한 로드밸런싱에 대해서도 정리해 봤습니다. 
