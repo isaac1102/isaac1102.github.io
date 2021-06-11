@@ -23,3 +23,4 @@ MySQL서버 복제를 구축하기 위해서는 중복되지 않는 __server-id�
 >- [http://cloudrain21.com/mysql-replication](http://cloudrain21.com/mysql-replication)
 >- [https://server-talk.tistory.com/240](https://server-talk.tistory.com/240)
 >- https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465
+>- https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465
