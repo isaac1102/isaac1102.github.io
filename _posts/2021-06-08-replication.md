@@ -22,6 +22,6 @@ MySQL서버 복제를 구축하기 위해서는 중복되지 않는 __server-id�
 >- [https://gangnam-americano.tistory.com/12](https://gangnam-americano.tistory.com/12)
 >- [http://cloudrain21.com/mysql-replication](http://cloudrain21.com/mysql-replication)
 >- [https://server-talk.tistory.com/240](https://server-talk.tistory.com/240)
->- https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465
->- https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465
->- https://k-channel.tistory.com/entry/MySQL-%EC%84%9C%EB%B9%84%EC%8A%A4%EA%B0%80-%EB%A1%9C%EC%BB%AC-%EC%BB%B4%ED%93%A8%ED%84%B0%EC%97%90%EC%84%9C-%EC%8B%9C%EC%9E%91%ED%96%88%EB%8B%A4%EA%B0%80-%EC%A4%91%EC%A7%80%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95
+>- [https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465)
+>- [https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465)
+>- [https://k-channel.tistory.com/entry/MySQL-%EC%84%9C%EB%B9%84%EC%8A%A4%EA%B0%80-%EB%A1%9C%EC%BB%AC-%EC%BB%B4%ED%93%A8%ED%84%B0%EC%97%90%EC%84%9C-%EC%8B%9C%EC%9E%91%ED%96%88%EB%8B%A4%EA%B0%80-%EC%A4%91%EC%A7%80%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95](https://k-channel.tistory.com/entry/MySQL-%EC%84%9C%EB%B9%84%EC%8A%A4%EA%B0%80-%EB%A1%9C%EC%BB%AC-%EC%BB%B4%ED%93%A8%ED%84%B0%EC%97%90%EC%84%9C-%EC%8B%9C%EC%9E%91%ED%96%88%EB%8B%A4%EA%B0%80-%EC%A4%91%EC%A7%80%EB%90%98%EC%97%88%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95)
