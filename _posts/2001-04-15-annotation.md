@@ -24,7 +24,8 @@ comments: 1
 ### 프로퍼티 소스 @PropertySource
 - Spring의 Environment에 PropertySource를 추가하기위한 편리하고 선언적인 메커니즘을 제공하는 주석. @Configuration 클래스와 함께 사용된다.
 - 아래의 코드를 보면, app.properties라는 설정파일로부터 testbean.name의 키에 해당하는 값을 가지고 오는 것을 알 수 있다. 
-```
+- 
+{% highlight java %}
 @Configuration
 @PropertySource("classpath:/com/myco/app.properties")
 public class AppConfig {
@@ -39,7 +40,7 @@ public class AppConfig {
          return testBean;
      }
 }
-```
+{% endhighlight %}
 Environment 객체는 구성 클래스에 @Autowired되어 TestBean 객체를 채울 때 사용된다. 위의 구성에서 testBean.getName ()을 호출하면 "myTestBean"이 반환된다.   
 
 
@@ -66,13 +67,13 @@ Spring에는 개발자가 Spring 애플리케이션을 쉽게 구성 할 수 있
 
 ### 메타 어노테이션
 다음과 같은 인터페이스 정의가 있다.
-```
+{% highlight java %} 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CustomAnnotation {
 	boolean isCheck() default true;
 }
-```
+{% highlight java %} 
 위의 예시는 메타 어노테이션을 이용한 커스텀 어노테이션을 작성한 것이다. 
 메타 어노테이션의 종류를 살펴보자.
 * <strong>종류</strong>
