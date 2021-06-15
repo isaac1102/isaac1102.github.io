@@ -24,13 +24,18 @@ DB서버를 복제하고 이중화한다는 것은 DB서버로 들어오는 요�
 이제 본격적으로 MySQL Replication에 대해서 알아보도록 하겠습니다. 
 
 이 프로젝트에서 사용한 DB는 `MySQL`이므로 `MySQL`을 기준으로 알아보았습니다. <br> 
- <br> 
- ### 1. MySQL 서비스 2개 실행
+<br> 
+ ### 1. MySQL 서비스 준비
 `MySQL`을 이중화하기 위해서는 기본적으로 2개 이상의 MySQL서비스가 실행되어야 합니다. 
-이 부분에 대한 내용은 아래의 블로그 글에 아주 잘 설명되어 있습니다. 😀<br> 
-- [다수의 MySQL 서버실행을 위한 환경설정](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465)<br> 
-- [MySQL 서비스 실행이 잘 안될때](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465)<br> 
-docker를 통한 실행 방법도 있다고 하니 참고하시기 바랍니다. (하루빨리 docker를 학습해야겠습니다...ㅠㅠ)<br>  
+이 부분에 대한 내용은 아래의 블로그 글에 아주 잘 설명되어 있습니다. 😀<br>
+- [다수의 MySQL 서버실행을 위한 환경설정](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465)  <br>
+- [MySQL 서비스 실행이 잘 안될때](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=amcc&logNo=221340672465)  <br> 
+
+‼‼본래는 위의 방법대로 동일한 MySQL설치파일을 가지고 my.ini파일의 설정을 바꿔서 진행하려고 했습니다. <br> 
+그러나 진행과정에서 MySQL8.XX부터는 connection과정에서 encrypt plugin 옵션으로 기본으로 caching_sha2_password을 사용함을 알게 됐는데, <br> 
+마스터와 슬레이브 간의 통신에서 이 방식을 사용하게 됩니다. 이 의미는 결국 서비스 별로 인증서에 관련된 파일을 가지고 있어야 한다는 말입니다.(ca.pem, server-cert.pem, server-key.pem)
+그러나 위의 과정대로 진행하게 된다면, 모두 복사된 동일한 파일들을 가지고 실행하게 되므로, 연결 과정에서 인증에 실패하게 됩니다.
+다른 방식이 있을 수도 있었겠지만, 그것들을 알아볼 것과의 trade-off를 고려하여 저는 그냥 MySQL을 하나 더 설치하여 서비스를 추가하기로 했습니다. 
 
 
 <p style="align:center;">
@@ -41,6 +46,28 @@ docker를 통한 실행 방법도 있다고 하니 참고하시기 바랍니다.
 <br> 
 
 ### 2. MySQL 설정
+저의 경우 window10 환경에서 설정을 진행했으므로, window기준으로 설명하겠습니다. 
+
+__고유한 server-id 설정__    <br> 
+서비스를 띄우는 것에 성공했다면, 이제 source가 되는 서비스와 replica의 server-id를 고유하게 설정해야 합니다. 
+서로 다른 **server-id**를 가지도록 **my.ini**파일을 수정합니다. (linux의 경우 my.cnf가 설정파일입니다.)<br> 
+만약 다수의 replica를 가지더라도 모두 고유한 server-id를 가져야 합니다. <br> 
+Master <br> 
+> [mysqld]<br> 
+> server-id=1   
+
+Slave  <br> 
+> [mysqld]<br> 
+> server-id=2
+
+__replication을 위한 user를 생성__ <br> 
+각 replica는 각 사용자 이름과 비밀번호를 가지고 source에 연결하기 때문에, source에서는 replica가 source에 연결하기 위한 계정을 생성해야 합니다. <br> 
+>mysql> CREATE USER 'repl'@'%.example.com' IDENTIFIED BY 'password';<br> 
+
+계정생성과 함께 생성된 계정에 replication을 위한 권한을 부여합니다. 
+>mysql> GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%.example.com';
+
+__Replication Encrypted Connection 설정__<br> 
 
 
 ## 2. Spring 설정
