@@ -6,7 +6,6 @@ categories: SPRING
 tags: SPRING
 comments: 1
 ---
-
 <strong>@Component</strong><br>	
 @Component 는 Spring이 사용자 정의 Bean을 자동으로 감지 할 수 있도록하는 주석이다.   
 즉, 명시적인 코드를 작성할 필요없이 Spring은 다음을 수행한다.    
