@@ -6,12 +6,14 @@ categories: JAVA
 tags: JAVA concurrentHashMap
 comments: 1
 ---
-&nbsp;회사에서 종종 보이는 예외중의 하나가 동시성 관련 `ConcurrentModificationException`예외였다. 이 예외는 어떤 쓰레드가 Iterator를 통해 반복중인 Collection을 수정하는 경우 발생한다. 내가 본 경우는 DB에서 가져온 List를 순회하며 조건에 따라 수정하는 로직이었던 것으로 기억한다. 동시성 관련 예외는 멀티 스레드 환경에서 서로 다른 스레드가 같은 객체에 접근하여 데이터를 조작할 때에 발생한다. 아까 말한 List인 ArrayList의 경우 thread-safe하지 않기 때문에 동시성 이슈에서 자유로울 수 없었던 것이다.   
+&nbsp;회사에서 종종 보이는 예외중의 하나가 동시성 관련 `ConcurrentModificationException`예외였다. <br> 
+이 예외는 어떤 쓰레드가 Iterator를 통해 순회 중인 Collection을 수정하는 경우 발생한다. <br> 
+내가 본 경우는 DB에서 가져와서 List에 저장된 데이터를 순회하는 중 동시에 수정작업을 하려는 로직이었던 것으로 기억한다. <br> 
+동시성 관련 예외는 멀티 스레드 환경에서 서로 다른 스레드가 같은 객체에 접근하여 데이터를 조작할 때에 발생한다. 아까 말한 List인 ArrayList의 경우 thread-safe하지 않기 때문에 동시성 이슈에서 자유로울 수 없었던 것이다.  하지만 이 글에서는 ArrayList의 동시성 이슈가 아닌 ConcurrentHashMap이 멀티 스레드 환경에서 동시성 이슈를 어떻게 다루는 지에 대해 알아볼 것이다. 
 <br>
-
-
+<br>  
 <strong>`ConcurrentHashMap`은 어떻게 thread-safe할 수 있는 걸까? </strong><br>
-&nbsp;자바에서 제공하는 `HashMap`과 `Hashtable`은 Map인터페이스를 상속받아 구현되어 데이터를 키와 값으로 관리하는 자료구조이다.
+ 자바에서 제공하는 `HashMap`과 `Hashtable`은 Map인터페이스를 상속받아 구현되어 데이터를 키와 값으로 관리하는 자료구조이다.
 이 둘의 차이점으로 동기화(Synchronization)를 들 수 있다. `HashMap`의 경우 동기화를 지원하지 않는다.
 반면 다중 스레드 환경에서 `Hashtable`은 동기화를 지원하기 때문에 실행 환경에 따라 구분하여 사용하면 된다.   
 &nbsp;동기화를 지원한다는 것은 스레드의 접근을 제한하여 단일 스레드만 순차적으로 접근할 수 있게 한다는 의미이다. 이것은 스레드의 병목을 유발하여 성능저하의 영향을 미칠 수 있다. 
