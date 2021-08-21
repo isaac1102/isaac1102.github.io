@@ -6,7 +6,7 @@ categories: SPRING
 tags: SPRING
 comments: 1
 ---
-**@Component**<br>	
+@Component<br>	
 @Component 는 Spring이 사용자 정의 Bean을 자동으로 감지 할 수 있도록하는 주석이다.   
 즉, 명시적인 코드를 작성할 필요없이 Spring은 다음을 수행한다.    
 - @Component가 표시된 클래스는 빈 스캐너를 통해 자동으로 빈으로 등록된다. 
@@ -19,7 +19,7 @@ comments: 1
 지정된 패키지를 순회하다가 @Component가 붙은 클래스가 발견되면 새로운 빈으로 자동 추가한다. 이렇게 생성되는 빈은 아이디를 따로 지정하지 않으면 클래스 이름의 첫글자를 소문자로 바꾸어서 사용된다. 
 
 
-**@PropertySource**
+@PropertySource 
 - Spring의 Environment에 PropertySource를 추가하기위한 편리하고 선언적인 메커니즘을 제공하는 주석. @Configuration 클래스와 함께 사용된다.
 - 아래의 코드를 보면, app.properties라는 설정파일로부터 testbean.name의 키에 해당하는 값을 가지고 오는 것을 알 수 있다. 
 
@@ -43,7 +43,7 @@ public class AppConfig {
 Environment 객체는 구성 클래스에 @Autowired되어 TestBean 객체를 채울 때 사용된다. 위의 구성에서 testBean.getName ()을 호출하면 "myTestBean"이 반환된다.   
 
 
-**@Enable**
+@Enable
 Spring에는 개발자가 Spring 애플리케이션을 쉽게 구성 할 수 있도록하는 @Enable 주석 세트가 함께 제공된다. 이러한 주석은 @Configuration 주석과 함께 사용된다.
 종류는 아래와 같다.    
 
@@ -64,7 +64,7 @@ Spring에는 개발자가 Spring 애플리케이션을 쉽게 구성 할 수 있
 @Enable 어노테이션에 대한 자세한 내용은 [이곳](https://www.baeldung.com/spring-enable-annotations)에서 확인하면 된다.  
  
 
-**메타 어노테이션**
+메타 어노테이션
 
 다음과 같은 인터페이스 정의가 있다.
 {% highlight java %} 
