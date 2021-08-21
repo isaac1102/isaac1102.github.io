@@ -97,6 +97,6 @@ public @interface CustomAnnotation {
 - RetentionPolicy.RUNTIME : 컴파일 이후에도 JVM에 의해 계속 참조가 가능(리플렉션 사용)
 
 
-어노테이션은 기본적으로 인터페이스 형태를 취하며 interface 앞에 @를 표시하면 된다. 
+어노테이션은 기본적으로 인터페이스 형태를 취하며 interface 앞에 `@`를 표시하면 된다. 
 어노테이션의 필드에서는 enum, String이나 기본 자료형, 기본 자료형의 배열을 사용할 수 있습니다.
 
