@@ -23,6 +23,8 @@ comments: 1
 <br><br> 
  ![Screenshot_6](https://user-images.githubusercontent.com/37571052/130328295-b560e4bc-0dcf-403d-bc53-7c42598d25e7.png) 
 <br>
+<br> 
+<br> 
 &nbsp;반면에, `concurrentHashMap`의 경우에는 전체 테이블에 락을 걸지 않고, 테이블을 여러 영역으로 나눈 후 작업이 일어나는 영역에만 락을 건다. 조금 더 자세히 말하자면 테이블을 concurrency의 level에 따라 여러 segment로 나눈 후, 작업이 일어나는 세그먼트에만 락을 거는 것이다.   
 concurrency level이 특정되지 않는다면 concurrency level의 기본값은 16이다. 따라서 기본적으로 `concurrentHashMap`은 16개의 세그먼트로 분할되며, 각 세그먼트별로 작업할 수 있기 때문에 기본적으로 16개의 스레드가 동시에 접근하여 작업할 수 있다.   
 &nbsp;위와 같은 원리로 `concurrencyHashmap`은 동시성을 보존함에도 thread-safe할 수 있으며, 성능적인 측면에서도 손해를 줄일 수 있다. 
