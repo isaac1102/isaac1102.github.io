@@ -73,7 +73,7 @@ Spring에는 개발자가 Spring 애플리케이션을 쉽게 구성 할 수 있
 public @interface CustomAnnotation {
 	boolean isCheck() default true;
 }
-{% highlight java %} 
+{% endhighlight %}
 위의 예시는 메타 어노테이션을 이용한 커스텀 어노테이션을 작성한 것이다. 
 메타 어노테이션의 종류를 살펴보자.
 
