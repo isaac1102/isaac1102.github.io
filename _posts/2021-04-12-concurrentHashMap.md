@@ -20,10 +20,8 @@ comments: 1
 <br>
 이제 이 글의 주제인 `concurrentHashMap`에 대해서 알아보자. `concurrentHashMap`은 동시적이고 멀티스레드한 환경에서 기존의 `hashmap`보다 더 나은 성능을 위해서 만들어졌다. `concurrenthashmap`은 동시성을 해결하기 위해 `hashtable`처럼 테이블 전체에 대해서 synchronize를 걸지 않는다. `hashtable`은 단일 스레드가 작업을 완료하는동안 전체 테이블에 락이 걸리게 되므로 성능적으로 손해를 본다.   
 
-<br><br>
-<div style="text-align:center;">
- ![Screenshot_6](https://user-images.githubusercontent.com/37571052/130328295-b560e4bc-0dcf-403d-bc53-7c42598d25e7.png)
-</div>
+<br><br> 
+ ![Screenshot_6](https://user-images.githubusercontent.com/37571052/130328295-b560e4bc-0dcf-403d-bc53-7c42598d25e7.png) 
 <br>
 &nbsp;반면에, `concurrentHashMap`의 경우에는 전체 테이블에 락을 걸지 않고, 테이블을 여러 영역으로 나눈 후 작업이 일어나는 영역에만 락을 건다. 조금 더 자세히 말하자면 테이블을 concurrency의 level에 따라 여러 segment로 나눈 후, 작업이 일어나는 세그먼트에만 락을 거는 것이다.   
 concurrency level이 특정되지 않는다면 concurrency level의 기본값은 16이다. 따라서 기본적으로 `concurrentHashMap`은 16개의 세그먼트로 분할되며, 각 세그먼트별로 작업할 수 있기 때문에 기본적으로 16개의 스레드가 동시에 접근하여 작업할 수 있다.   
