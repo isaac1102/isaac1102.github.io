@@ -2,8 +2,8 @@
 layout: post
 title:  "대용량 트래픽을 견뎌내는 서버는 어떻게 구성됐을까?"
 date:   2001-04-15 00:00:07
-categories: SPRING
-tags: SPRING
+categories: SMARTSTORE
+tags: SMARTSTORE
 comments: 1
 ---
 
