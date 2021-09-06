@@ -33,7 +33,7 @@ comments: 1
 __Scale Up (수직적 확장)__ 은 단일 서버의 성능을 높여서 더 많은 요청을 처리할 수 있도록 하는 것입니다. 주로 성능이나 용량에 관련된 CPU나 RAM을 업그레이드하고 디스크를 추가하여 개선합니다.  
 
 <p style="align=center;">
-  <img src="https://user-images.githubusercontent.com/37571052/121654195-6f100680-cad8-11eb-873e-4805a92eb06c.png" style="width=600px;" >
+  <img src="https://user-images.githubusercontent.com/37571052/121654195-6f100680-cad8-11eb-873e-4805a92eb06c.png" style="width:100%;" >
 </p>  
 Scale Up은 비교적 쉽고, 실행하기 쉬운 방법입니다. 그리고 한 대의 서버가 모든 데이터를 처리하기 때문에 데이터 갱신이 빈번히 일어나는 경우에 적합합니다. 
 
@@ -56,7 +56,7 @@ Scale Up은 비교적 쉽고, 실행하기 쉬운 방법입니다. 그리고 한
 __Scale Out(수평적 확장)__ 은 현재서버의 성능과 비슷하거나 더 저사양의 서버를 추가하여 접속된 서버의 대수를 늘려 처리 능력을 향상시키는 것입니다. 이 방법을 통해 여러 대의 서버를 병렬적으로 사용하여 클라이언트의 요청을 여러 서버에 분산하여 처리할 수 있습니다. scale up에 비해서 인프라 재구성이 유연한 방법이라고 볼 수 있겠습니다. 
 
 <p style="align=center;">
-  <img src="https://user-images.githubusercontent.com/37571052/121654557-cf9f4380-cad8-11eb-9396-6cb616df46cf.png" style="width=600px;" >
+  <img src="https://user-images.githubusercontent.com/37571052/121654557-cf9f4380-cad8-11eb-9396-6cb616df46cf.png" style="width:100%;" >
 </p>  
  
 아래와 같은 조건이라면 Scale out을 고려하는 것이 좋겠습니다. 
