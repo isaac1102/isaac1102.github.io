@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "서비스 이용자 수가 감당이 안될 때 서버를 어떻게 확장해야 할까?"
-date:   2001-04-15 00:00:07
+date:   2021-03-20 00:00:07
 categories: SMARTSTORE
 tags: SMARTSTORE
 comments: 1
