@@ -7,25 +7,70 @@ tags: SMARTSTORE
 comments: 1
 ---
  
-안녕하세요. 이번 글에서는 스마트스토어 프로젝트 중에 MySQL Replication을 적용한 경험에 대해서 적어보고자 합니다. 
+이번 글에서는 스마트스토어 프로젝트 중에 MySQL Replication을 적용한 경험에 대해서 적어보고자 합니다. 
 
 ##### Replication?
-Replication한다는 것이 정확히 어떤 의미일까요. 쉽게 말하면 MySQL을 복제하는 것입니다. 다만 단순히 데이터를 복제하는 것이 아니라, 데이터 복제와 더불어 데이터베이스 서버로서의 기능도 함께 수행하도록 한든 것입니다. 데이터를 어떻게 복제하고, 어떤 기능을 수행하도록 하는지 이제 본격적으로 알아보도록 하겠습니다. 
+데이터베이스를 복제하는 것입니다. 다만 단순히 데이터를 복제하는 것이 아니라, 데이터 복제와 더불어 데이터베이스 서버로서의 기능도 함께 수행하도록 한든 것입니다. 데이터를 어떻게 복제하고, 어떤 기능을 수행하도록 하는지 이제 본격적으로 알아보도록 하겠습니다. 
 
 ##### DB서버(MySQL)를 복제(replication)하는 이유
-**1. 데이터베이스 서버의 부하 분산**
-MySQL 서버를 복제하는 이유 중의 가장 큰 것은 서버의 부하를 분산하기 위함입니다. 서버의 부하는 사용자의 증가와 이용률 증가에 따라서 발생할 확률이 높습니다. 또한 저장된 데이터가 너무 많다면 데이터 조회 등의 소요시간이 더 많이 걸릴 수도 있겠죠. 이런 요인들이 서버의 부하를 유발하기 때문에 이 부하를 분산하고자 Replication을 하는 것입니다. 
-<br> <br> 
-**2. 데이터 백업**
-서버의 데이터를 한 서버에 저장하는 것은 위험요소가 많습니다. 우리가 중요한 데이터는 다른 곳에 백업하듯이 replication을 통해서도 같은 역할을 할 수 있습니다. 
-
-**3. `Fail-over`**
-만약 데이터베이스 서버가 한 대이고 장애가 발생한다면, 서비스는 장애가 해결될 때까지 중단될 수밖에 없을 것이다. 하지만 Replication을 통해서 복수의 데이터베이스 서버를 사용한다면 `Fail-over`를 통해서 장애에 더욱 더 유연하게 대처할 수 있을 것이다. 
+**1. 데이터베이스 서버의 부하 분산**  
+**2. 데이터 백업**  
+**3. `Fail-over`**  : 만약 데이터베이스 서버가 한 대이고 장애가 발생한다면, 장애가 해결될 때까지 서비스가 중단될 것입니다. 하지만 Replication을 통해서 복수의 데이터베이스 서버를 사용한다면 `Fail-over`를 통해서 유연하게 장애에 대처할 수 있을 것입니다.
 <br> <br> 
 
+##### MySQL Replication의 원리 
+MySQL Replication을 위해서는 Master와 Slave간의 데이터 전송이 이뤄지는데, MySQL은 비동기 복제방식으로 이것을 수행합니다. 
+Master노드에서는 변경 데이터 이력을 Binary Log에 기록하고 Master Thread가 이것을 읽어서 Slave로 전송한다. Slave에서는 전송된 데이터를 수신하여 Relay_log에 기록하고 해당 데이터를 Slave에 적용합니다. 
+
+<img src="https://user-images.githubusercontent.com/37571052/132649556-03cf4c7a-1e27-40f6-851b-123bfd3f31d3.png" style="width:100%; height:auto;"> 
+<br> <br> 
+
+MySQL 에서 Replication 을 위해 반드시 필요한 요소는 다음과 같습니다.
+
+- Master 에서의 변경을 기록하기 위한 Binary Log
+- Binary Log 를 읽어서 Slave 쪽으로 데이터를 전송하기 위한 Master Thread
+- Slave 에서 데이터를 수신하여 Relay Log 에 기록하기 위한 I/O Thread
+- Relay Log 를 읽어서 해당 데이터를 Slave 에 Apply(적용)하기 위한 SQL Thread
 
 
-이제 본격적으로 MySQL Replication에 대해서 알아보도록 하겠습니다. 
+클라이언트(Application)에서 Commit 을 수행한다.
+Connection Thead 는 스토리지 엔진에게 해당 트랜잭션에 대한 Prepare(Commit 준비)를 수행한다.
+Commit 을 수행하기 전에 먼저 Binary Log 에 변경사항을 기록한다.
+스토리지 엔진에게 트랜잭션 Commit 을 수행한다.
+Master Thread 는 시간에 구애받지 않고(비동기적으로) Binary Log 를 읽어서 Slave 로 전송한다.
+Slave 의 I/O Thread 는 Master 로부터 수신한 변경 데이터를 Relay Log 에 기록한다. (기록하는 방식은 Master 의 Binary Log 와 동일하다)
+Slave 의 SQL Thread 는 Relay Log 에 기록된 변경 데이터를 읽어서 스토리지 엔진에 적용한다.
+'MariaDB - binary log' 에서 Log Format 에 대해 언급했듯이, 데이터를 다른 노드로 복제해야 하는 상황에서 과연 SQL 을 전송하여 Replay 하는 방식으로 복제할 것인가, 또는 변경되는 Row 데이터를 전송하여 복제할 것인가가 고민거리다. 전자를 SBR(Statement Based Replication)이라고 하고, 후자를 RBR(Row Based Replication)이라고 한다. SBR 은 로그의 크기가 작을 것이고, RBR 은 데이터 정합성에 있어서 유리할 것이다. 사용자는 SQL 의 성격이나 변경 대상 데이터 양에 따라 SBR 또는 RBR 를 선택하여 사용할 수 있다.
+
+SBR 과 RBR 을 자동으로 섞어서 사용할 수 있는 방식이 추가되었는데 이를 MBR(Mixed Based Replication)이라고 한다. 평상 시에는 SBR 로 동작하다가 비결정성(Non-Deterministic) SQL 을 만나면 자동으로 RBR 방식으로 전환하여 기록하는 방식이다. Binary Log 의 크기와 데이터의 정합성에 대한 장점을 모두 취한 방식이라고 보면 된다.
+
+Master Thread
+MySQL Replication 에서는 Slave Thread 가 Client 이고 Master Thread 가 Server 이다. 즉, Slave Thread 가 Master Thread 쪽으로 접속을 요청하기 때문에 Master 에는 Slaver Thread 가 로그인할 수 있는 계정과 권한(REPLICATION_SLAVE)이 필요하다.
+
+Master 쪽으로 동시에 다수의 Slave Thread 가 접속할 수 있으므로 Slave Thread 당 하나의 Master Thread 가 대응되어 생성된다. Master Thread 는 한가지 역할만을 수행하는데, 이는 Binary Log 를 읽어서 Slave 로 전송하는 것이다. 이 때문에 Binlog Sender 또는 Binlog Dump 라고도 불린다.
+
+Master 입장에서 Slave 의 접속은 여느 Client 의 접속과 다를 바가 없다. 따라서, 해당 접속이 Replication Slave Thread 로부터의 접속인지 일반 Application 의 접속인지 구분할 수 있는 방법이 없다. 로그인 과정도 일반 Client 와 동일하게 처리되기 때문이다.
+Master 가 특정 접속을 Slave Thread 로 인식하여 Binary Log 를 전송하려면, Slave 로부터의 특정 명령 Protocol 을 통해 '난 다른 Client 랑 다르게 Replication Slave 야' 와 같이 알려주어야 한다. Slave Thread 는 Master 에 접속 후 Binary Log 의 송신을 요청하는 명령어(Protocol)를 전송하는데 이는 COM_BINLOG_DUMP 와 COM_BINLOG_DUMP_GTID 이다. 전자는 Binary Log 파일명과 포지션에 의해, 후자는 GTID 에 의해 Binary Log 의 포지션을 결정한다. (GTID 는 MySQL 5.6 에 추가된 기능)
+Slave 는 위의 Protocol 을 통한(실제 SQL 은 아님) 소통 이후에 COM_QUERY 라는 Protocol 을 통해 실제 데이터(SQL) 송신을 요청하게 된다.
+
+Slave I/O Thread
+Slave I/O Thread 는 Master 로부터 연속적으로 수신한 데이터를 Relay Log 라는 로그 파일에 순차적으로 기록한다. Relay Log 파일의 Format 은 Master 측의 Binary Log Format 과 정확하게 일치한다. 인덱스 파일도 똑같이 존재하고 파일 명에 6 자리 숫자가 붙는 것도 동일하다.
+Relay Log 는 Replication 을 시작하면 자동으로 생성된다. Relay Log 의 내용을 확인하기 위해서는 SHOW RELAYLOG EVENTS 명령어를 사용한다.
+Relay Log 파일의 이름은 기본적으로 '호스트명-relay-bin' 이며, 이는 호스트 이름이 변경될 경우 오류가 발생할 수 있으므로 relay_log 옵션을 이용하여 사용자가 의도한대로 정하는 편이 좋다.
+
+Slave SQL Thead
+Slave SQL Thread 는 Relay Log 에 기록된 변경 데이터 내용을 읽어서 스토리지 엔진을 통해 Slave 측에 Replay(재생)하는 Thread 이다. 아무래도 Relay Log 를 기록하는 I/O Thread 보다는 실제 DB 의 내용을 변경하는 SQL Thread 가 처리량과 연산이 많게 마련이다.
+이는 SQL Thread 가 Replication 처리의 병목 지점이 될 수 있다는 것을 의미한다.
+Master 측에서는 많은 수의 Thread 가 변경을 발생시키고 있는데 반해, Slave 에서는 하나의 SQL Thread 가 DB 반영 작업을 수행한다면 병목이 되는 것은 당연하다. 이의 해결을 위해 등장한 것이 MySQL 5.7 에서 대폭 개선된 MTS(Multi Thread Slave)이다. 이는 Slave 에서의 SQL Thread 가 병렬로 데이터베이스 갱신을 수행할 수 있도록 개선된 기능이다. (해당 기능에 대한 자세한 내용은 향후 별도 주제로 다루도록 하겠다.)
+
+
+
+
+
+
+
+
+
 DB서버를 복제하고 이중화한다는 것은 DB서버로 들어오는 요청을 분산하고 main DB서버와 sub DB서버의 기능을 분리하는 것을 말합니다. 
 이 프로젝트에서 사용한 DB는 `MySQL`이므로 `MySQL`을 기준으로 알아보았습니다. <br> 
 <br> 
@@ -76,6 +121,7 @@ __Replication Encrypted Connection 설정__<br>
 
 ## 2. Spring 설정
 >__참고자료__    
+>- [http://cloudrain21.com/mysql-replication](http://cloudrain21.com/mysql-replication)
 >- [https://gangnam-americano.tistory.com/12](https://gangnam-americano.tistory.com/12)
 >- [http://cloudrain21.com/mysql-replication](http://cloudrain21.com/mysql-replication)
 >- [https://server-talk.tistory.com/240](https://server-talk.tistory.com/240)
