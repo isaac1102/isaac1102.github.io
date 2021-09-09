@@ -22,29 +22,29 @@ comments: 1
 MySQL Replication을 위해서는 Master와 Slave간의 데이터 전송이 이뤄지는데, MySQL은 비동기 복제방식으로 이것을 수행합니다. 
 Master노드에서는 변경 데이터 이력을 Binary Log에 기록하고 Master Thread가 이것을 읽어서 Slave로 전송한다. Slave에서는 전송된 데이터를 수신하여 Relay_log에 기록하고 해당 데이터를 Slave에 적용합니다. 
 
-<p  align="center">
-<img src="https://user-images.githubusercontent.com/37571052/132649556-03cf4c7a-1e27-40f6-851b-123bfd3f31d3.png" style="width:70%; height:auto;"> 
- </p>
-<br> <br> 
-
-MySQL 에서 Replication 을 위해 반드시 필요한 요소는 다음과 같습니다.
+MySQL 에서 Replication 을 위해 필요한 요소 다음과 같습니다.
 
 - Master 에서의 변경을 기록하기 위한 Binary Log
 - Binary Log 를 읽어서 Slave 쪽으로 데이터를 전송하기 위한 Master Thread
 - Slave 에서 데이터를 수신하여 Relay Log 에 기록하기 위한 I/O Thread
 - Relay Log 를 읽어서 해당 데이터를 Slave 에 Apply(적용)하기 위한 SQL Thread
+<br><br> 
+<p  align="center">
+<img src="https://user-images.githubusercontent.com/37571052/132654929-18254ad7-c941-415f-8908-2a64aad4408a.png" style="width:70%; height:auto;"> 
+ </p>
+<br><br> 
+
+1. 클라이언트(Application)에서 Commit 을 수행한다.
+2. Connection Thead 는 스토리지 엔진에게 해당 트랜잭션에 대한 Prepare(Commit 준비)를 수행한다.
+3. Commit 을 수행하기 전에 먼저 Binary Log 에 변경사항을 기록한다.
+4. 스토리지 엔진에게 트랜잭션 Commit 을 수행한다.
+5. Master Thread가 비동기적으로 Binary Log를 읽는다.
+6. Master Thread가 Slave 로 전송한다.
+7. Slave 의 I/O Thread 는 Master 로부터 수신한 변경 데이터를 Relay Log 에 기록한다. (기록하는 방식은 Master 의 Binary Log 와 동일하다)
+8. Slave 의 SQL Thread 는 Relay Log 에 기록된 변경 데이터를 읽어는다.
+9. Slave 의 SQL Thread 는 읽어들인 변경사항을 스토리지 엔진에 적용한다. 
 
 
-클라이언트(Application)에서 Commit 을 수행한다.
-Connection Thead 는 스토리지 엔진에게 해당 트랜잭션에 대한 Prepare(Commit 준비)를 수행한다.
-Commit 을 수행하기 전에 먼저 Binary Log 에 변경사항을 기록한다.
-스토리지 엔진에게 트랜잭션 Commit 을 수행한다.
-Master Thread 는 시간에 구애받지 않고(비동기적으로) Binary Log 를 읽어서 Slave 로 전송한다.
-Slave 의 I/O Thread 는 Master 로부터 수신한 변경 데이터를 Relay Log 에 기록한다. (기록하는 방식은 Master 의 Binary Log 와 동일하다)
-Slave 의 SQL Thread 는 Relay Log 에 기록된 변경 데이터를 읽어서 스토리지 엔진에 적용한다.
-'MariaDB - binary log' 에서 Log Format 에 대해 언급했듯이, 데이터를 다른 노드로 복제해야 하는 상황에서 과연 SQL 을 전송하여 Replay 하는 방식으로 복제할 것인가, 또는 변경되는 Row 데이터를 전송하여 복제할 것인가가 고민거리다. 전자를 SBR(Statement Based Replication)이라고 하고, 후자를 RBR(Row Based Replication)이라고 한다. SBR 은 로그의 크기가 작을 것이고, RBR 은 데이터 정합성에 있어서 유리할 것이다. 사용자는 SQL 의 성격이나 변경 대상 데이터 양에 따라 SBR 또는 RBR 를 선택하여 사용할 수 있다.
-
-SBR 과 RBR 을 자동으로 섞어서 사용할 수 있는 방식이 추가되었는데 이를 MBR(Mixed Based Replication)이라고 한다. 평상 시에는 SBR 로 동작하다가 비결정성(Non-Deterministic) SQL 을 만나면 자동으로 RBR 방식으로 전환하여 기록하는 방식이다. Binary Log 의 크기와 데이터의 정합성에 대한 장점을 모두 취한 방식이라고 보면 된다.
 
 Master Thread
 MySQL Replication 에서는 Slave Thread 가 Client 이고 Master Thread 가 Server 이다. 즉, Slave Thread 가 Master Thread 쪽으로 접속을 요청하기 때문에 Master 에는 Slaver Thread 가 로그인할 수 있는 계정과 권한(REPLICATION_SLAVE)이 필요하다.
