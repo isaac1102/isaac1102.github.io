@@ -22,7 +22,9 @@ comments: 1
 MySQL Replication을 위해서는 Master와 Slave간의 데이터 전송이 이뤄지는데, MySQL은 비동기 복제방식으로 이것을 수행합니다. 
 Master노드에서는 변경 데이터 이력을 Binary Log에 기록하고 Master Thread가 이것을 읽어서 Slave로 전송한다. Slave에서는 전송된 데이터를 수신하여 Relay_log에 기록하고 해당 데이터를 Slave에 적용합니다. 
 
-<img src="https://user-images.githubusercontent.com/37571052/132649556-03cf4c7a-1e27-40f6-851b-123bfd3f31d3.png" style="width:100%; height:auto;"> 
+<p  align="center">
+<img src="https://user-images.githubusercontent.com/37571052/132649556-03cf4c7a-1e27-40f6-851b-123bfd3f31d3.png" style="width:70%; height:auto;"> 
+ </p>
 <br> <br> 
 
 MySQL 에서 Replication 을 위해 반드시 필요한 요소는 다음과 같습니다.
