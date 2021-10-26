@@ -46,9 +46,9 @@ native는 자바가 아닌 언어(보통 C나 C++)로 구현한 후 자바에서
 
 equals메소드에서 두 객체가 같다면 hashcode도 동일한 정수값이어야 한다.
 equals () 및 hashcode () 메서드가 재정의되지 않으면 Object클래스에 정의된 메소드가 호출된다.
-이 경우 메서드는 둘 이상의 객체가 동일한 값을 갖는지 확인하는 equals () 및 hashcode ()의 실제 목적을 충족하지 않습니다.
+이 경우 메서드는 둘 이상의 객체가 동일한 값을 갖는지 확인하는 equals () 및 hashcode ()의 실제 목적을 충족하지 않는다.
 따라서 재정의는 꼭 필요하다. 
-일반적으로 equals ()를 재정의 할 때 hashcode ()도 재정의해야한다.
+일반적으로 equals ()를 재정의 할 때 hashcode ()도 재정의해야 한다.
 
 ### equals()로 객체 비교
 두 객체가 동일한지 확인하기 위해서 equals는 객체 속성값을 비교하도록 재정의한다. 
@@ -60,7 +60,7 @@ public class EqualsAndHashCodeExample {
                  .equals(new Simpson("Homer",35,120))); // true
         
         System.out.println(new Simpson("Bart", 10, 120)
-                 .equals(new Simpson("El Barto", 10, 45)));  // true
+                 .equals(new Simpson("El Barto", 10, 45)));  // false
         
         System.out.println(new Simpson("Lisa", 54, 60)
                  .equals(new Object()));  //false
